@@ -1,0 +1,66 @@
+postgres                | 2025-04-20 16:35:10.017 UTC [29] LOG:  database system was shut down at 2025-04-20 16:34:57 UTC
+postgres                | 2025-04-20 16:35:10.028 UTC [1] LOG:  database system is ready to accept connections
+prefect-process-worker  | Hit:1 http://deb.debian.org/debian bookworm InRelease
+prefect-process-worker  | Hit:2 http://deb.debian.org/debian bookworm-updates InRelease
+prefect-process-worker  | Hit:3 http://deb.debian.org/debian-security bookworm-security InRelease
+prefect-process-worker  | Reading package lists...
+prefect-process-worker  | Reading package lists...
+prefect-process-worker  | Building dependency tree...
+prefect-process-worker  | Reading state information...
+prefect-server          |
+prefect-server          |  ___ ___ ___ ___ ___ ___ _____
+prefect-server          | | _ \ _ \ __| __| __/ __|_   _|
+prefect-server          | |  _/   / _|| _|| _| (__  | |
+prefect-server          | |_| |_|_\___|_| |___\___| |_|
+prefect-server          |
+prefect-server          | Configure Prefect to communicate with the server with:
+prefect-server          |
+prefect-server          |     prefect config set PREFECT_API_URL=http://0.0.0.0:4200/api
+prefect-server          |
+prefect-server          | View the API reference documentation at http://0.0.0.0:4200/docs
+prefect-server          |
+prefect-server          | Check out the dashboard at http://0.0.0.0:4200
+prefect-server          |
+prefect-server          |
+prefect-server          |
+prefect-process-worker  | curl is already the newest version (7.88.1-10+deb12u12).
+prefect-process-worker  | 0 upgraded, 0 newly installed, 0 to remove and 31 not upgraded.
+prefect-process-worker  | Waiting for Prefect API to become available...
+prefect-process-worker  | Waiting for Prefect server...
+prefect-process-worker  | Waiting for Prefect server...
+prefect-process-worker  | Waiting for Prefect server...
+prefect-process-worker  | Waiting for Prefect server...
+prefect-process-worker  | true
+prefect-process-worker  | Prefect Server is up... Creating or updating work pool...
+prefect-process-worker  | Work pool named 'process-pool' already exists. Use --overwrite to update it.
+prefect-process-worker  | Registering deployments using prefect.yaml...
+prefect-process-worker  | Your Prefect workers will attempt to load your flow from:
+prefect-process-worker  | /opt/prefect/flows/etl_flow.py. To see more options for managing your flow's
+prefect-process-worker  | code, run:
+prefect-process-worker  |
+prefect-process-worker  |         $ prefect init
+prefect-process-worker  |
+prefect-process-worker  | ╭──────────────────────────────────────────────────────────────────────────────╮
+prefect-process-worker  | │ Deployment 'demo-etl-flow/etl-deployment' successfully created with id       │
+prefect-process-worker  | │ 'fb0faf68-0c7a-41d1-b691-b278e5c07344'.                                      │
+prefect-process-worker  | ╰──────────────────────────────────────────────────────────────────────────────╯
+prefect-process-worker  |
+prefect-process-worker  | View Deployment in UI:
+prefect-process-worker  | http://prefect-server:4200/deployments/deployment/fb0faf68-0c7a-41d1-b691-b278e5
+prefect-process-worker  | c07344
+prefect-process-worker  |
+prefect-process-worker  |
+prefect-process-worker  | To execute flow runs from this deployment, start a worker in a separate terminal
+prefect-process-worker  | that pulls work from the 'process-pool' work pool:
+prefect-process-worker  |
+prefect-process-worker  |         $ prefect worker start --pool 'process-pool'
+prefect-process-worker  |
+prefect-process-worker  | To schedule a run for this deployment, use the following command:
+prefect-process-worker  |
+prefect-process-worker  |         $ prefect deployment run 'demo-etl-flow/etl-deployment'
+prefect-process-worker  |
+prefect-process-worker  | Starting Prefect worker for 'my-pool'...
+prefect-process-worker  | Work pool 'my-pool' does not exist and no worker type was provided. Starting a
+prefect-process-worker  | process worker...
+prefect-process-worker  | 16:35:28.891 | INFO    | prefect.worker.process.processworker 07d482bb-8232-407e-93fb-2a655958d592 - Work pool 'my-pool' created.
+prefect-process-worker  | Worker 'ProcessWorker 07d482bb-8232-407e-93fb-2a655958d592' started!

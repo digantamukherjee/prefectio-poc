@@ -1,0 +1,72 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - prefect-net
+    ports:
+      - "5432:5432"
+
+  prefect-server:
+    image: prefecthq/prefect:3.0.8-python3.10
+    # image: prefecthq/prefect:latest
+    container_name: prefect-server
+    depends_on:
+      - postgres
+    ports:
+      - "4200:4200"
+    environment:
+      PREFECT_API_DATABASE_CONNECTION_URL: ${PREFECT_API_DATABASE_URL}
+      PREFECT_UI_API_URL: ${PREFECT_UI_API_URL}
+    # command: ["prefect", "server", "start", "--host", "0.0.0.0"]
+    command: >
+      /bin/bash -c "
+        echo Waiting for Postgres...;
+        sleep 10;
+        prefect server start --host 0.0.0.0
+      "
+    volumes:
+      - prefect_data:/root/.prefect
+    networks:
+      - prefect-net
+
+  prefect-worker:
+    image: prefecthq/prefect:3.0.8-python3.10
+    # image: custom-prefect-worker:latest
+    # image: prefecthq/prefect:latest
+    container_name: prefect-process-worker
+    depends_on:
+      - prefect-server
+    environment:
+      PREFECT_API_URL: ${PREFECT_API_URL}
+      PREFECT_WORK_POOL_NAME: ${PREFECT_WORK_POOL_NAME}
+    ports:
+      - "4300:4200"
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock
+      # - ./flows:/flows  
+      - ./flows:/opt/prefect/flows
+      - ./worker/worker.sh:/worker/worker.sh
+    networks:
+      - prefect-net
+    # command: >
+    #   bash -c "
+    #     prefect work-pool create ${PREFECT_WORK_POOL_NAME} --type process || true && sleep 10 &&
+    #     prefect worker start --pool ${PREFECT_WORK_POOL_NAME} --type process
+    #   "
+    entrypoint: ["/bin/bash", "/worker/worker.sh"]
+
+networks:
+  prefect-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  prefect_data:
