@@ -1,4 +1,4 @@
-name: etl-deployment
+name: demo-etl-flow
 version:
 type: deployment
 entrypoint: etl_flow.py:etl
@@ -11,7 +11,7 @@ parameters: {}
 infra_overrides: {}
 schedule:
 deployments:
-- name: etl-test
+- name: demo-etl-flow-deployment
   version:
   tags: []
   concurrency_limit:
@@ -20,10 +20,10 @@ deployments:
   parameters: {}
   work_pool:
     name: process-pool
-    work_queue_name:
+    work_queue_name: spedifi_etl
     job_variables: {}
   enforce_parameter_schema: true
   schedules: []
-  pull:
-  - prefect.deployments.steps.set_working_directory:
-      directory: /opt/prefect/flows
+  # pull:
+  # - prefect.deployments.steps.set_working_directory:
+  #     directory: /opt/prefect/flows

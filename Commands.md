@@ -12,3 +12,8 @@ View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux
 python /flows/deploy_etl.py &&
 
 winpty docker exec -it custom-prefect-server //bin/bash
+
+```
+
+Start a run for a prefect deployment:
+prefect deployment run 'demo-etl-flow/demo-etl-flow-deployment'
